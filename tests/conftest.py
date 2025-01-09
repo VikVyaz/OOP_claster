@@ -24,3 +24,17 @@ def cat_init_list(prod_init_list) -> Generator:
         Category("Телевизоры", "Описание2", prod_init_list),
     ]
     Category.category_count = amount
+
+
+@pytest.fixture()
+def fixt_cat_create():
+    return [{
+        "name": "",
+        "description": "",
+        "products": [{
+            "name": "123",
+            "description": "123",
+            "price": 0.0,
+            "quantity": 0
+        }]
+    }]
