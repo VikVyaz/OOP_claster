@@ -16,4 +16,4 @@ def test_to_create_category_object(mock_open_file, fixt_cat_create, prod_init_li
     mock_open_file.return_value = fixt_cat_create
     result = to_create_category_object('123')[0]
     assert isinstance(result, Category)
-    assert isinstance(result.products[0], Product)
+    assert isinstance(result.for_tests_prods()[0], Product)

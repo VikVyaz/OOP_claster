@@ -59,18 +59,22 @@ class Category:
     def add_product(self, product: Product):
         for prod in self.__products:
             if product.name == prod.name:
+
                 prod.quantity += product.quantity
                 break
         else:
             self.__products.append(product)
             Category.product_count += 1
 
+    def for_tests_prods(self):
+        return self.__products
+
     @property
     def products(self):
         if self.__products:
             return_prods = ''
             for prod in self.__products:
-                return_prods += f'{prod.name}, {prod.price} руб. Остаток: {prod.quantity} шт. \n'
+                return_prods += f'{prod.name}, {prod.price} руб. Остаток: {prod.quantity} шт.\n'
             return return_prods
         return 'Список продуктов пуст'
 
