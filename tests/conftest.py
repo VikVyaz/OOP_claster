@@ -35,23 +35,23 @@ def cat_init_list_short(prod_init_list) -> Generator:
 
 @pytest.fixture()
 def fixt_cat_create():
-    return [{
-        "name": "",
-        "description": "",
-        "products": [{
-            "name": "123",
-            "description": "123",
-            "price": 0.0,
-            "quantity": 0
-        }]
-    }]
+    return [
+        {
+            "name": "",
+            "description": "",
+            "products": [
+                {"name": "123", "description": "123", "price": 0.0, "quantity": 0}
+            ],
+        }
+    ]
 
 
 @pytest.fixture()
 def fixt_add_prod():
     return {
-        'cat': Category("test_cat", "test_cat",
-                        [Product("test_prod", "test_prod", 1.0, 1)]),
-        'prod_to_add_1': Product("test_prod", "test_prod", 1.0, 1),
-        'prod_to_add_2': Product("test_prod_2", "test_prod_2", 1.0, 2)
+        "cat": Category(
+            "test_cat", "test_cat", [Product("test_prod", "test_prod", 1.0, 1)]
+        ),
+        "prod_to_add_1": Product("test_prod", "test_prod", 1.0, 1),
+        "prod_to_add_2": Product("test_prod_2", "test_prod_2", 1.0, 2),
     }

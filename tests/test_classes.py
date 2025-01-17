@@ -1,8 +1,11 @@
-from src.classes import Category, Product
 from unittest.mock import patch
+
+from src.classes import Category, Product
 
 
 def test_product_init(prod_init_list: list) -> None:
+    """Тест инициализации Product"""
+
     for prod in prod_init_list:
         assert prod.name in [
             "Samsung Galaxy S23 Ultra",
@@ -19,12 +22,16 @@ def test_product_init(prod_init_list: list) -> None:
 
 
 def test_category_counters_1(cat_init_list) -> None:
+    """Тест счетчика категорий и продуктов в них"""
+
     test_cat = cat_init_list[0]
     assert test_cat.category_count == 2
     assert test_cat.product_count == 6
 
 
 def test_category_init(cat_init_list: list, prod_init_list) -> None:
+    """Тест инициализации Category"""
+
     for cat in cat_init_list:
         assert cat.name in ["Смартфоны", "Телевизоры"]
         assert cat.description in ["Описание1", "Описание2"]
@@ -33,32 +40,40 @@ def test_category_init(cat_init_list: list, prod_init_list) -> None:
 
 
 def test_clsmethod_product():
-    test_prod = Product.new_product({"name": "1", "description": "2", "price": 3, "quantity": 4})
-    assert test_prod.name == '1'
-    assert test_prod.description == '2'
+    """Тест класс-метода Product.new_product()"""
+
+    test_prod = Product.new_product(
+        {"name": "1", "description": "2", "price": 3, "quantity": 4}
+    )
+    assert test_prod.name == "1"
+    assert test_prod.description == "2"
     assert test_prod.price == 3
     assert test_prod.quantity == 4
 
 
-def test_prod_setter_price(prod_init_list):
+def test_prod_getter_price(prod_init_list):
+    """Тест геттера цены в Product"""
+
     assert prod_init_list[1].price == 210000.0
 
 
-@patch('src.classes.input')
-def test_prod_getter_price(mock_input, prod_init_list, capsys):
+@patch("src.classes.input")
+def test_prod_setter_price(mock_input, prod_init_list, capsys):
+    """Тест сеттера цены в Product"""
+
     test_prod = prod_init_list[0]
     test_prod.price = 0
     message = capsys.readouterr()
-    assert message.out.strip() == 'Цена не должна быть нулевая или отрицательная'
+    assert message.out.strip() == "Цена не должна быть нулевая или отрицательная"
 
     test_prod.price = 10
-    mock_input.return_value = 'y'
+    mock_input.return_value = "y"
     assert test_prod.price == 10
 
-    mock_input.return_value = 'n'
+    mock_input.return_value = "n"
     test_prod.price = 5
     message = capsys.readouterr()
-    assert message.out.strip() == 'Изменения отменены'
+    assert message.out.strip() == "Изменения отменены"
     assert test_prod.price == 10
 
     test_prod.price = 200000
@@ -66,13 +81,20 @@ def test_prod_getter_price(mock_input, prod_init_list, capsys):
 
 
 def test_add_prod_in_category(fixt_add_prod):
-    fixt_add_prod['cat'].add_product(fixt_add_prod['prod_to_add_1'])
-    assert fixt_add_prod['cat'].for_tests_prods()[0].quantity == fixt_add_prod['prod_to_add_1'].quantity * 2
-    fixt_add_prod['cat'].add_product(fixt_add_prod['prod_to_add_2'])
-    assert len(fixt_add_prod['cat'].for_tests_prods()) == 2
+    """Тест добавления продукта в категорию в Category"""
+
+    fixt_add_prod["cat"].add_product(fixt_add_prod["prod_to_add_1"])
+    assert (
+        fixt_add_prod["cat"].for_tests_prods()[0].quantity
+        == fixt_add_prod["prod_to_add_1"].quantity * 2
+    )
+    fixt_add_prod["cat"].add_product(fixt_add_prod["prod_to_add_2"])
+    assert len(fixt_add_prod["cat"].for_tests_prods()) == 2
 
 
 def test_products_print_in_category(fixt_add_prod):
-    assert fixt_add_prod['cat'].products == 'test_prod, 1.0 руб. Остаток: 1 шт.\n'
-    test_empty = Category('test', 'test')
-    assert test_empty.products == 'Список продуктов пуст'
+    """Тест геттера products в Category"""
+
+    assert fixt_add_prod["cat"].products == "test_prod, 1.0 руб. Остаток: 1 шт.\n"
+    test_empty = Category("test", "test")
+    assert test_empty.products == "Список продуктов пуст"

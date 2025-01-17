@@ -1,7 +1,7 @@
-from typing import Any
-from src.classes import Category, Product
-
 import json
+from typing import Any
+
+from src.classes import Category, Product
 
 
 def to_open_file(path: str) -> Any:
@@ -23,9 +23,9 @@ def to_create_category_object(path: str) -> list:
     data = to_open_file(path)
     for cat in data:
         result_category = []
-        for prod in cat['products']:
+        for prod in cat["products"]:
             result_category.append(Product(**prod))
-        cat['products'] = result_category
+        cat["products"] = result_category
         result.append(Category(**cat))
 
     return result
