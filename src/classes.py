@@ -16,12 +16,12 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Пользовательская информация о продукте"""
 
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
-    def __add__(self, other):
+    def __add__(self, other) -> int | float | None:
         """Метод общей стоимости (кол-во * цену) двух продуктов"""
 
         if isinstance(other, Product):
@@ -49,9 +49,7 @@ class Product:
         if new_price <= 0.0:
             print("Цена не должна быть нулевая или отрицательная")
         elif new_price < self.__price:
-            proof = input(
-                "Цена ниже прежней. Установить новую цену: y - да, n - нет:\n"
-            )
+            proof = input("Цена ниже прежней. Установить новую цену: y - да, n - нет:\n")
             if proof == "n":
                 print("Изменения отменены")
             else:
@@ -81,20 +79,20 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products) if products else 0
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Информация о продуктах в экземпляре Category"""
 
         prods_in_cat = 0
         for prod in self.__products:
             prods_in_cat += prod.quantity
-        return f'{self.__class__.__name__}, количество продуктов: {prods_in_cat}'
+        return f'{self.name}, количество продуктов: {prods_in_cat}'
 
-    def __len__(self):
-        """len() для класса"""
+    def __len__(self) -> int:
+        """len() для экземпляра Category"""
 
         return len(self.__products)
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Product:
         """Метод, позволяющий работать с индексами в списке продуктов"""
 
         return self.__products[index]
@@ -125,13 +123,13 @@ class Category:
         if self.__products:
             return_prods = ""
             for prod in self.__products:
-                return_prods += (str(prod))
+                return_prods += str(prod)
             return return_prods
         return "Список продуктов пуст"
 
 
 class CatIter:
-    """Итератор по категориям"""
+    """Итератор по продуктам для Category"""
 
     category: Category
 

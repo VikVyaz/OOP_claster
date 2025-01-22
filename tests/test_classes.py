@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from src.classes import Category, Product
+from src.classes import Category, Product, CatIter
 
 
 def test_product_init(prod_init_list: list) -> None:
@@ -85,8 +85,8 @@ def test_add_prod_in_category(fixt_add_prod):
 
     fixt_add_prod["cat"].add_product(fixt_add_prod["prod_to_add_1"])
     assert (
-        fixt_add_prod["cat"].for_tests_prods()[0].quantity
-        == fixt_add_prod["prod_to_add_1"].quantity * 2
+            fixt_add_prod["cat"].for_tests_prods()[0].quantity
+            == fixt_add_prod["prod_to_add_1"].quantity * 2
     )
     fixt_add_prod["cat"].add_product(fixt_add_prod["prod_to_add_2"])
     assert len(fixt_add_prod["cat"].for_tests_prods()) == 2
@@ -95,6 +95,35 @@ def test_add_prod_in_category(fixt_add_prod):
 def test_products_print_in_category(fixt_add_prod):
     """Тест геттера products в Category"""
 
-    assert fixt_add_prod["cat"].products == "test_prod, 1.0 руб. Остаток: 1 шт.\n"
+    assert fixt_add_prod["cat"].products == "test_prod, 1.0 руб. Остаток: 1 шт."
+
     test_empty = Category("test", "test")
     assert test_empty.products == "Список продуктов пуст"
+
+
+def test_magic_prod(prod_init_list):
+    """Тест маг. методов(str, add) Product"""
+
+    assert str(prod_init_list[0]) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+
+    result = prod_init_list[0] + prod_init_list[1]
+    assert result == 2580000.0
+    error = prod_init_list[0] + 1
+    assert error is None
+
+
+def test_magic_cat(cat_init_list, prod_init_list):
+    """Тест маг. методов(str, len, getitem) Category"""
+
+    assert str(cat_init_list[0]) == "Смартфоны, количество продуктов: 27"
+    assert len(cat_init_list[0]) == 3
+    assert cat_init_list[0][0] == prod_init_list[0]
+
+
+def test_iterator(cat_init_list, fixt_iteration):
+    """Тест итератора CatIter"""
+
+    for cat in cat_init_list:
+        for prod in CatIter(cat):
+            assert str(prod) in fixt_iteration
+            assert isinstance(prod, Product)

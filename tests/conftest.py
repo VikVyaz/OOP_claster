@@ -55,3 +55,10 @@ def fixt_add_prod():
         "prod_to_add_1": Product("test_prod", "test_prod", 1.0, 1),
         "prod_to_add_2": Product("test_prod_2", "test_prod_2", 1.0, 2),
     }
+
+
+@pytest.fixture()
+def fixt_iteration():
+    return ['Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.',
+            'Iphone 15, 210000.0 руб. Остаток: 8 шт.',
+            'Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.']
