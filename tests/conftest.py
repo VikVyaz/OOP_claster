@@ -59,6 +59,8 @@ def fixt_add_prod():
 
 @pytest.fixture()
 def fixt_iteration():
-    return ['Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.',
-            'Iphone 15, 210000.0 руб. Остаток: 8 шт.',
-            'Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.']
+    return [
+        "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.",
+        "Iphone 15, 210000.0 руб. Остаток: 8 шт.",
+        "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.",
+    ]

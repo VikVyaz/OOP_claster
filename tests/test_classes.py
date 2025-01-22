@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from src.classes import Category, Product, CatIter
+from src.classes import Category, CatIter, Product
 
 
 def test_product_init(prod_init_list: list) -> None:
@@ -85,8 +85,8 @@ def test_add_prod_in_category(fixt_add_prod):
 
     fixt_add_prod["cat"].add_product(fixt_add_prod["prod_to_add_1"])
     assert (
-            fixt_add_prod["cat"].for_tests_prods()[0].quantity
-            == fixt_add_prod["prod_to_add_1"].quantity * 2
+        fixt_add_prod["cat"].for_tests_prods()[0].quantity
+        == fixt_add_prod["prod_to_add_1"].quantity * 2
     )
     fixt_add_prod["cat"].add_product(fixt_add_prod["prod_to_add_2"])
     assert len(fixt_add_prod["cat"].for_tests_prods()) == 2
@@ -104,7 +104,10 @@ def test_products_print_in_category(fixt_add_prod):
 def test_magic_prod(prod_init_list):
     """Тест маг. методов(str, add) Product"""
 
-    assert str(prod_init_list[0]) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    assert (
+        str(prod_init_list[0])
+        == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    )
 
     result = prod_init_list[0] + prod_init_list[1]
     assert result == 2580000.0

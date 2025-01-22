@@ -49,7 +49,9 @@ class Product:
         if new_price <= 0.0:
             print("Цена не должна быть нулевая или отрицательная")
         elif new_price < self.__price:
-            proof = input("Цена ниже прежней. Установить новую цену: y - да, n - нет:\n")
+            proof = input(
+                "Цена ниже прежней. Установить новую цену: y - да, n - нет:\n"
+            )
             if proof == "n":
                 print("Изменения отменены")
             else:
@@ -85,7 +87,7 @@ class Category:
         prods_in_cat = 0
         for prod in self.__products:
             prods_in_cat += prod.quantity
-        return f'{self.name}, количество продуктов: {prods_in_cat}'
+        return f"{self.name}, количество продуктов: {prods_in_cat}"
 
     def __len__(self) -> int:
         """len() для экземпляра Category"""
