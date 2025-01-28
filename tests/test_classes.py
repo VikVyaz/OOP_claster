@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+import pytest
+
 from src.classes import Category, CatIter, Product
 
 
@@ -91,11 +93,14 @@ def test_add_prod_in_category(fixt_add_prod):
     fixt_add_prod["cat"].add_product(fixt_add_prod["prod_to_add_2"])
     assert len(fixt_add_prod["cat"].for_tests_prods()) == 2
 
+    with pytest.raises(TypeError):
+        fixt_add_prod["cat"].add_product([])
+
 
 def test_products_print_in_category(fixt_add_prod):
     """Тест геттера products в Category"""
 
-    assert fixt_add_prod["cat"].products == "test_prod, 1.0 руб. Остаток: 1 шт."
+    assert fixt_add_prod["cat"].products == "test_prod, 1.0 руб. Остаток: 1 шт.\n"
 
     test_empty = Category("test", "test")
     assert test_empty.products == "Список продуктов пуст"
@@ -111,8 +116,8 @@ def test_magic_prod(prod_init_list):
 
     result = prod_init_list[0] + prod_init_list[1]
     assert result == 2580000.0
-    error = prod_init_list[0] + 1
-    assert error is None
+    with pytest.raises(TypeError):
+        error = prod_init_list[0] + 1
 
 
 def test_magic_cat(cat_init_list, prod_init_list):

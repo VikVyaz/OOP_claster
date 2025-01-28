@@ -3,6 +3,7 @@ from typing import Generator
 import pytest
 
 from src.classes import Category, Product
+from src.subclasses import LawnGrass, Smartphone
 
 
 @pytest.fixture()
@@ -63,4 +64,27 @@ def fixt_iteration():
         "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.",
         "Iphone 15, 210000.0 руб. Остаток: 8 шт.",
         "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.",
+    ]
+
+
+# ------------------------------------------------subclasses.py----------------------------------------------------------
+
+
+@pytest.fixture()
+def fix_smartphone():
+    return [
+        Smartphone(
+            "test_name", "test_discr", 1, 1, "test", "test_model", 1, "test_color"
+        ),
+        Smartphone(
+            "test_name", "test_discr", 1, 1, "test", "test_model", 1, "test_color"
+        ),
+    ]
+
+
+@pytest.fixture()
+def fix_lawngrass():
+    return [
+        LawnGrass("test", "test", 1, 1, "test", "test", "test"),
+        LawnGrass("test", "test", 1, 1, "test", "test", "test"),
     ]
