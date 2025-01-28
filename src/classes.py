@@ -24,10 +24,9 @@ class Product:
     def __add__(self, other) -> int | float | None:
         """Метод общей стоимости (кол-во * цену) двух продуктов"""
 
-        if isinstance(other, Product):
+        if type(other) is Product:
             return (self.quantity * self.__price) + (other.quantity * other.__price)
-        else:
-            return None
+        raise TypeError("Error")
 
     @classmethod
     def new_product(cls, product_data: dict):
@@ -99,16 +98,18 @@ class Category:
 
         return self.__products[index]
 
-    def add_product(self, product: Product) -> None:
+    def add_product(self, product) -> None:
         """Метод добавления продукта/ов в категорию"""
-
-        for prod in self.__products:
-            if product.name == prod.name:
-                prod.quantity += product.quantity
-                break
+        if isinstance(product, Product):
+            for prod in self.__products:
+                if product.name == prod.name:
+                    prod.quantity += product.quantity
+                    break
+            else:
+                self.__products.append(product)
+                Category.product_count += 1
         else:
-            self.__products.append(product)
-            Category.product_count += 1
+            raise TypeError("Error")
 
     def for_tests_prods(self) -> list:
         """Технический метод для тестов
@@ -125,7 +126,7 @@ class Category:
         if self.__products:
             return_prods = ""
             for prod in self.__products:
-                return_prods += str(prod)
+                return_prods += f"{str(prod)}\n"
             return return_prods
         return "Список продуктов пуст"
 
