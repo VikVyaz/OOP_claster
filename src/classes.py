@@ -1,4 +1,8 @@
-class Product:
+from src.abstract import BaseProduct, BaseTradeTurnover
+from src.mixin import MixinPrinting
+
+
+class Product(BaseProduct, MixinPrinting):
     """
     Класс для предоставления продукта
     """
@@ -15,6 +19,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     def __str__(self) -> str:
         """Пользовательская информация о продукте"""
@@ -59,7 +64,7 @@ class Product:
             self.__price = new_price
 
 
-class Category:
+class Category(BaseTradeTurnover):
     """
     Класс для предоставления категории
     """
@@ -120,7 +125,7 @@ class Category:
         return self.__products
 
     @property
-    def products(self) -> str:
+    def products(self):
         """Геттер вывода перечня продуктов в категории"""
 
         if self.__products:
@@ -129,6 +134,23 @@ class Category:
                 return_prods += f"{str(prod)}\n"
             return return_prods
         return "Список продуктов пуст"
+
+
+class Order(BaseTradeTurnover):
+    """
+    Класс для предоставления заказа
+    """
+
+    def __init__(self, product: Product, quantity):
+        self.product = product
+        self.quantity = quantity
+        self.order_cost = product.price * quantity
+
+    def add_product(self, product):
+        pass
+
+    def products(self):
+        pass
 
 
 class CatIter:
