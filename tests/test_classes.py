@@ -135,3 +135,12 @@ def test_iterator(cat_init_list, fixt_iteration):
         for prod in CatIter(cat):
             assert str(prod) in fixt_iteration
             assert isinstance(prod, Product)
+
+
+def test_order_init(fix_order):
+    assert fix_order.product.name == "test"
+    assert fix_order.product.description == "test"
+    assert fix_order.product.price == 2
+    assert fix_order.product.quantity == 1
+    assert fix_order.quantity == 1
+    assert fix_order.order_cost == 2

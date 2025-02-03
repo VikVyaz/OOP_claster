@@ -2,7 +2,7 @@ from typing import Generator
 
 import pytest
 
-from src.classes import Category, Product
+from src.classes import Category, Order, Product
 from src.subclasses import LawnGrass, Smartphone
 
 
@@ -65,6 +65,12 @@ def fixt_iteration():
         "Iphone 15, 210000.0 руб. Остаток: 8 шт.",
         "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.",
     ]
+
+
+@pytest.fixture()
+def fix_order():
+    result = Product("test", "test", 2, 1)
+    return Order(result, 1)
 
 
 # ------------------------------------------------subclasses.py----------------------------------------------------------
