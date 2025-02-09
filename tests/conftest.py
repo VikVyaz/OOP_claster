@@ -38,10 +38,10 @@ def cat_init_list_short(prod_init_list) -> Generator:
 def fixt_cat_create():
     return [
         {
-            "name": "",
-            "description": "",
+            "name": "test",
+            "description": "test",
             "products": [
-                {"name": "123", "description": "123", "price": 0.0, "quantity": 0}
+                {"name": "123", "description": "123", "price": 1, "quantity": 1}
             ],
         }
     ]
