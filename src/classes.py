@@ -1,4 +1,5 @@
 from src.abstract import BaseProduct, BaseTradeTurnover
+from src.exceptions import ZeroQuantityError
 from src.mixin import MixinPrinting
 
 
@@ -14,7 +15,10 @@ class Product(BaseProduct, MixinPrinting):
 
     def __init__(self, name, description, price, quantity):
         """Инициализация Product"""
-
+        if quantity <= 0:
+            raise ZeroQuantityError(
+                "Товар с нулевым количеством не может быть добавлен"
+            )
         self.name = name
         self.description = description
         self.__price = price
@@ -134,6 +138,13 @@ class Category(BaseTradeTurnover):
                 return_prods += f"{str(prod)}\n"
             return return_prods
         return "Список продуктов пуст"
+
+    @property
+    def average_price(self):
+        try:
+            return sum(prod.price for prod in self.__products) / len(self.__products)
+        except ZeroDivisionError:
+            return 0
 
 
 class Order(BaseTradeTurnover):
