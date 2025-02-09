@@ -3,6 +3,7 @@ from unittest.mock import patch
 import pytest
 
 from src.classes import Category, CatIter, Product
+from src.exceptions import ZeroQuantityError
 
 
 def test_product_init(prod_init_list: list) -> None:
@@ -144,3 +145,13 @@ def test_order_init(fix_order):
     assert fix_order.product.quantity == 1
     assert fix_order.quantity == 1
     assert fix_order.order_cost == 2
+
+
+def test_zero_quantity_init():
+    with pytest.raises(ZeroQuantityError):
+        Product("test", "test", 1, 0)
+
+
+def test_category_average_price():
+    test_cat = Category("Смартфоны", "Описание1", [])
+    assert test_cat.average_price == 0

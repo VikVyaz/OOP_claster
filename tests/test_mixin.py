@@ -3,9 +3,9 @@ from src.subclasses import LawnGrass, Smartphone
 
 
 def test_mixin_printing(capsys):
-    Product("", "", 0, 0)
+    Product("test", "test", 1, 1)
     message = capsys.readouterr()
-    assert message.out.strip() == "Product('', '', 0, 0)"
+    assert message.out.strip() == "Product('test', 'test', 1, 1)"
 
     Smartphone(
         "Samsung Galaxy S23 Ultra",
